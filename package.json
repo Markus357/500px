@@ -1,5 +1,6 @@
 {
   "name": "500px",
+  "description": "Popular Photo Showcase",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
