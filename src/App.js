@@ -9,7 +9,9 @@ class App extends Component {
     return (
       <ImagesProvider>
         <div className="App">
-          <header className="App-header"></header>
+          <header className="App-header">
+            <img className="App-logo" src="logo.svg" />
+          </header>
             
         </div>
       </ImagesProvider>
