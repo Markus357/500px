@@ -3,7 +3,14 @@ import { ImagesContext } from '../providers/ImagesProvider';
 
 const WithImages = ( WrappedComponent ) => props => (
   <ImagesContext.Consumer>
-    { imagesContext => <WrappedComponent {...props} images={ imagesContext.photos } /> }
+    { imagesContext => (
+      <WrappedComponent {...props}
+        images={ imagesContext.photos }
+        currentPage={ imagesContext.current_page }
+        totalPages={ imagesContext.total_pages }
+        setImagePage={ imagesContext.setImagePage }
+      />
+    )}
   </ImagesContext.Consumer>
 );
 
