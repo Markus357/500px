@@ -8,23 +8,27 @@ class ImagesProvider extends React.Component {
   constructor( props ) {
     super( props );
 
+    // Bind this custom methods
+    this.fetchImagePage = this.fetchImagePage.bind( this );
+    this.setImagePage = this.setImagePage.bind( this );
+
     // Import environment details
     this.endpoint = process.env.REACT_APP_API_URL;
     this.apiKey = process.env.REACT_APP_API_KEY;
 
     // Pre-configure request parameters
-    this.requestOptions = {
+    this.defaultRequestOptions = {
       consumer_key: this.apiKey,
       feature: 'popular',
       image_size: '30,1600',
     };
 
-    // Initialize State
-    this.state = {};
+    // Initialize State, expose setImagePage method
+    this.state = { setImagePage: this.setImagePage };
   }
 
   componentWillMount() {
-    this.setImagePage({ pageNumber: 1, pageSize: 20 });
+    this.setImagePage({ pageNumber: 1 });
   }
 
   async fetchImagePage({ endpoint, requestOptions }) {
@@ -43,17 +47,19 @@ class ImagesProvider extends React.Component {
     return await response.json();
   }
 
-  async setImagePage({ pageNumber, pageSize }) {
-    this.requestOptions = {
+  async setImagePage({ pageNumber, pageSize = 20 }) {
+    // Prepare request options - augment with defaults
+    const requestOptions = {
       rpp: pageSize,
       page: pageNumber,
-      ...this.requestOptions,
+      ...this.defaultRequestOptions,
     };
-    // Destructure endpoint and updated requestOptions from instance
-    const { endpoint, requestOptions } = this;
 
     // Pass request data to fetching function, catch any errors
-    const imagePage = await this.fetchImagePage({ endpoint, requestOptions }).catch( err => err );
+    const imagePage = await this.fetchImagePage({
+      endpoint: this.endpoint,
+      requestOptions
+    }).catch( err => err );
 
     // If not error, set state with fetched page data
     if ( imagePage instanceof Error ) return imagePage;
