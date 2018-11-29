@@ -16,8 +16,7 @@ class ImagesProvider extends React.Component {
     this.requestOptions = {
       consumer_key: this.apiKey,
       feature: 'popular',
-      image_size: '2,3,1600',
-      rpp: 20,
+      image_size: '30,1600',
     };
 
     // Initialize State
@@ -25,14 +24,7 @@ class ImagesProvider extends React.Component {
   }
 
   async componentWillMount() {
-    // Destructure endpoint and requestOptions from instance
-    const { endpoint, requestOptions } = this;
-
-    // Pass request data to fetching function, catch any errors
-    const imagePage = await this.fetchImagePage({ endpoint, requestOptions }).catch( err => err );
-
-    // If not error, set state with fetched page data
-    !( imagePage instanceof Error ) && this.setState({ ...imagePage });
+    this.setImagePage({ pageNumber: 1, pageSize: 12 });
   }
 
   async fetchImagePage({ endpoint, requestOptions }) {
@@ -49,6 +41,60 @@ class ImagesProvider extends React.Component {
 
     // Return data parsed as json
     return await response.json();
+  }
+
+  async setImagePage({ pageNumber, pageSize }) {
+    this.requestOptions = {
+      rpp: pageSize,
+      page: pageNumber,
+      ...this.requestOptions,
+    };
+    // Destructure endpoint and updated requestOptions from instance
+    const { endpoint, requestOptions } = this;
+
+    // Pass request data to fetching function, catch any errors
+    const imagePage = await this.fetchImagePage({ endpoint, requestOptions }).catch( err => err );
+
+    // If not error, set state with fetched page data
+    if ( imagePage instanceof Error ) return imagePage;
+
+    // Format photos array as needed for grid gallery
+    imagePage.photos = imagePage.photos.map( photo => this.formatImageData( photo ) );
+
+    console.log({imagePage});
+    this.setState({ ...imagePage });
+
+
+  }
+
+  formatImageData({ id, images, height, width, description, user }) {
+    // Image size 30 has max size of 256
+    const {
+      thumbnailWidth,
+      thumbnailHeight
+    } = this.getImageThumnailDimensions({ width, height, max: 256 });
+
+    return {
+      id,
+      src: images[1].https_url,
+      thumbnail: images[0].https_url,
+      thumbnailWidth,
+      thumbnailHeight,
+      caption: description,
+      user,
+    };
+  }
+
+  getImageThumnailDimensions({ height, width, max }) {
+    const orientation = width > height ? 'landscape' : 'portrait';
+    const modifier = orientation === 'landscape'
+      ? width / max
+      : height / max;
+
+    return {
+      thumbnailWidth: orientation === 'landscape' ? max : Math.ceil( width / modifier ),
+      thumbnailHeight: orientation !== 'landscape' ? max : Math.ceil( height / modifier ),
+    }
   }
 
   render() {
