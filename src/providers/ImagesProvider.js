@@ -23,8 +23,8 @@ class ImagesProvider extends React.Component {
     this.state = {};
   }
 
-  async componentWillMount() {
-    this.setImagePage({ pageNumber: 1, pageSize: 12 });
+  componentWillMount() {
+    this.setImagePage({ pageNumber: 1, pageSize: 20 });
   }
 
   async fetchImagePage({ endpoint, requestOptions }) {
@@ -58,13 +58,10 @@ class ImagesProvider extends React.Component {
     // If not error, set state with fetched page data
     if ( imagePage instanceof Error ) return imagePage;
 
-    // Format photos array as needed for grid gallery
+    // Format photos array as needed for grid gallery and set state
     imagePage.photos = imagePage.photos.map( photo => this.formatImageData( photo ) );
 
-    console.log({imagePage});
     this.setState({ ...imagePage });
-
-
   }
 
   formatImageData({ id, images, height, width, description, user }) {
