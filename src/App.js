@@ -25,6 +25,7 @@ const HeaderStyles = styled.header`
 
   .logo {
     height: 4rem;
+    margin: 0 auto;
   }
 `;
 
