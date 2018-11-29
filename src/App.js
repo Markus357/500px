@@ -38,10 +38,8 @@ const App = () => (
         <HeaderStyles>
           <img className="logo" src="logo.svg" alt="500px Logo" />
         </HeaderStyles>
-        <div className="App">
-          <header className="App-header">
-            <img className="App-logo" src="logo.svg" />
-          </header>
+
+        <PhotoShowcase />
 
       </AppStyles>
     </ImagesProvider>
