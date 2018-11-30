@@ -70,7 +70,7 @@ class ImagesProvider extends React.Component {
     this.setState({ ...imagePage });
   }
 
-  formatImageData({ id, images, height, width, description, user }) {
+  formatImageData({ id, images, height, width, name, description, user }) {
     // Image size 30 has max size of 256
     const {
       thumbnailWidth,
@@ -83,8 +83,7 @@ class ImagesProvider extends React.Component {
       thumbnail: images[0].https_url,
       thumbnailWidth,
       thumbnailHeight,
-      caption: description,
-      user,
+      caption: this.getImageCaption({ name, description, fullname: user.fullname }),
     };
   }
 
@@ -100,6 +99,14 @@ class ImagesProvider extends React.Component {
     }
   }
 
+  getImageCaption({ name, fullname, description }) {
+    const captionPhotoName = name ? name + ' by ' : '';
+    const captionName = fullname ? convertCase( fullname ) + ' - ' : '';
+    const captionDescription = description ? strip( description ) : '';
+
+    return truncateString( `${ captionPhotoName } ${ captionName } ${ captionDescription }`, 360 );
+  }
+
   render() {
     return (
       // Pass state as Provider value, render children
@@ -108,6 +115,23 @@ class ImagesProvider extends React.Component {
       </ImagesContext.Provider>
     )
   }
+}
+
+// Helper to truncate descriptions strings
+function truncateString( string, len ) {
+  return ( string.length > len ) ? string.substr( 0, len-1 ) + '...' : string;
+};
+
+// Helper to strip out html content
+function strip( html ) {
+  const doc = new DOMParser().parseFromString( html, 'text/html' );
+  return doc.body.textContent || "";
+}
+
+// Helper to uppercase names
+function convertCase( str ) {
+  var lower = String( str ).toLowerCase();
+  return lower.replace( /(^| )(\w)/g, x => x.toUpperCase() );
 }
 
 export { ImagesProvider, ImagesContext };
