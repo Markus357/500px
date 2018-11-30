@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Gallery from 'react-grid-gallery';
 import ReactPaginate from 'react-paginate';
 import styled from 'styled-components';
@@ -71,7 +72,7 @@ const PaginationStyles = styled.div`
   }
 `;
 
-const Showcase = ({ images, currentPage, totalPages, setImagePage }) => (
+const Showcase = ({ images, totalPages, setImagePage }) => (
   <>
     { images && images.length &&
       <GalleryStyles>
@@ -102,6 +103,21 @@ const Showcase = ({ images, currentPage, totalPages, setImagePage }) => (
     }
   </>
 );
+
+Showcase.propTypes = {
+  images: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      src: PropTypes.string.isRequired,
+      thumbnail: PropTypes.string.isRequired,
+      thumbnailWidth: PropTypes.number.isRequired,
+      thumbnailHeight: PropTypes.number.isRequired,
+      caption: PropTypes.string
+    })
+  ),
+  totalPages: PropTypes.number,
+  setImagePage: PropTypes.func.isRequired,
+};
 
 // export both a hydrated and raw version of this component for easier testing
 const PhotoShowcase = WithImages( Showcase );
