@@ -15,14 +15,14 @@ const GalleryStyles = styled.div`
     .tile {
       display: inline-block;
       float: none !important;
-      outline: 3px solid #fff;
       box-shadow: 0px 0px 0px -4px rgba(0,0,0,0);
       transition: all ease-in 125ms;
+      background-color: #fff;
 
       &:hover {
         z-index: 2;
         box-shadow: 0px 0px 30px -4px rgba(0,0,0,0.9);
-        transform: scale( 1.15 );
+        transform: scale( 1.2 );
       }
     }
   }
