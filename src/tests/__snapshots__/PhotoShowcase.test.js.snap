@@ -151,7 +151,7 @@ Array [
 exports[`<PhotoShowcaseRaw /> Should render pagination when there is more than 1 page of images 1`] = `
 Array [
   <div
-    className="sc-bdVaJa fQoLLz"
+    className="sc-bdVaJa izVFFd"
   >
     <div
       className="ReactGridGallery"
@@ -321,7 +321,7 @@ Array [
 exports[`<PhotoShowcaseRaw /> Should render the gallery when images are present 1`] = `
 Array [
   <div
-    className="sc-bdVaJa fQoLLz"
+    className="sc-bdVaJa izVFFd"
   >
     <div
       className="ReactGridGallery"

@@ -16,7 +16,7 @@ const HeaderStyles = styled.header`
   padding: 2rem;
   box-shadow: 0px 0px 1.6rem 0px rgba(0,0,0,0.4);
 
-  margin-bottom: 1rem;
+  background-color: rgba(255, 255, 255, 0.7);
 
   .logo {
     height: 4rem;
