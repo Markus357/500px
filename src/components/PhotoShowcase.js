@@ -71,32 +71,40 @@ const PaginationStyles = styled.div`
   }
 `;
 
-const PhotoShowcase = props => (
-  <GalleryStyles>
-    { props.images &&
-      <Gallery
-        enableImageSelection={ false }
-        maxRows={ 3 }
-        images={ props.images }
-      />
+const Showcase = ({ images, currentPage, totalPages, setImagePage }) => (
+  <>
+    { images && images.length &&
+      <GalleryStyles>
+        <Gallery
+          enableImageSelection={ false }
+          maxRows={ 3 }
+          images={ images }
+        />
+      </GalleryStyles>
     }
 
-    <PaginationStyles>
-      <ReactPaginate
-        previousLabel={ 'previous' }
-        nextLabel={ 'next' }
-        breakLabel={ '...' }
-        breakClassName={ 'break-me' }
-        pageCount={ props.totalPages }
-        marginPagesDisplayed={ 2 }
-        pageRangeDisplayed={ 5 }
-        onPageChange={ data => props.setImagePage({ pageNumber: data.selected +1 }) }
-        containerClassName={ 'pagination' }
-        subContainerClassName={ 'pages pagination' }
-        activeClassName={ 'active' }
-      />
-    </PaginationStyles>
-  </GalleryStyles>
+    { totalPages > 1 &&
+      <PaginationStyles>
+        <ReactPaginate
+          previousLabel={ 'previous' }
+          nextLabel={ 'next' }
+          breakLabel={ '...' }
+          breakClassName={ 'break-me' }
+          pageCount={ totalPages }
+          marginPagesDisplayed={ 2 }
+          pageRangeDisplayed={ 5 }
+          onPageChange={ data => setImagePage({ pageNumber: data.selected +1 }) }
+          containerClassName={ 'pagination' }
+          subContainerClassName={ 'pages pagination' }
+          activeClassName={ 'active' }
+        />
+      </PaginationStyles>
+    }
+  </>
 );
 
-export default WithImages( PhotoShowcase );
+// export both a hydrated and raw version of this component for easier testing
+const PhotoShowcase = WithImages( Showcase );
+const PhotoShowcaseRaw = Showcase;
+
+export { PhotoShowcase, PhotoShowcaseRaw };
