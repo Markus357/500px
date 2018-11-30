@@ -2,7 +2,7 @@ import React from 'react';
 import styled, { createGlobalStyle } from 'styled-components'
 
 import { ImagesProvider } from './providers/ImagesProvider';
-import PhotoShowcase from './components/PhotoShowcase';
+import { PhotoShowcase } from './components/PhotoShowcase';
 
 const GlobalStyles = createGlobalStyle`
   html, body {
