@@ -49,5 +49,7 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 ### Credits
 
 Mark Davidson
+
 [mdavidson357@gmail.com](mailto:mdavidson357@gmail.com)
+
 [Find me on LinkedIn](https://www.linkedin.com/in/mark-davidson-50202116/)
