@@ -9,7 +9,7 @@ const GlobalStyles = createGlobalStyle`
     margin: 0;
     padding: 0;
     font-size: 62.5%; /* base 10px */
-    font-family: 'Helvetica Neue', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   }
 `;
 
