@@ -100,7 +100,7 @@ class ImagesProvider extends React.Component {
   }
 
   getImageCaption({ name, fullname, description }) {
-    const captionPhotoName = name ? name + ' by ' : '';
+    const captionPhotoName = name ? convertCase( name ) + ' by ' : '';
     const captionName = fullname ? convertCase( fullname ) + ' - ' : '';
     const captionDescription = description ? strip( description ) : '';
 
