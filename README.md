@@ -3,11 +3,13 @@
 This demo is a quick proof-of-concept for a Photo Showcase using the 500px photo API.
 The project is built in React using the [Create React App](https://github.com/facebook/create-react-app) tool for bootstrapping. It makes use of React's new Context API for passing the photo data to the PhotoShowcase component via a common higher-order component pattern.
 
+Styles for the demo make use of the popular [Styled Components](https://www.styled-components.com/) library. This allows for some useful features when writing CSS like nesting and the ability to pass component data into stylesheets for dynamic styling logic.
+
 In order to not re-invent the wheel, the demo makes use of a 3rd-party photo grid plugin called [react-grid-gallery](https://benhowell.github.io/react-grid-gallery) and wires-up the photo data to this plugin creating a photo-mosaic gallery with a built-in lightbox for full-screen viewing. (Note: opening a photo in the lightbox is currently throwing a console warning due to an implementation issue with the lightbox plugin. See [here](https://github.com/jossmac/react-images/pull/172#issuecomment-442886374) for more info.)
 
 For paginating the photo results, the demo also makes use of the [react-paginate](https://github.com/AdeleD/react-paginate) plugin which connects to the ImagesProvider context for updating the app's state.
 
-Some testing examples have also been set up in /tests to demonstrate the use of unit-tests, snapshots and data / module mocking. (The coverage is in no way meant to be comprehensive)
+Some testing examples have also been set up in /tests to demonstrate the use of unit-tests, snapshots and data / module mocking. The tests are written in [Jest](https://jestjs.io/) which is available out-of-the-box with [Create React App](https://github.com/facebook/create-react-app) as well as a library called [Enzyme](https://airbnb.io/enzyme/). (The coverage is in no way meant to be comprehensive)
 
 ### Environment Setup
 
